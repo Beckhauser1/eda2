@@ -32,7 +32,6 @@ int rkMatcher( char t [] , char p []) {
 }
 
 int main() {
-
     char *t = "ababababaababb";
     char *p = "ababb";
     cout << rkMatcher(t, p);
