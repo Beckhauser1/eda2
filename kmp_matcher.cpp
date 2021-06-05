@@ -48,8 +48,6 @@ int kmpMatcher (string t , string p ) {
     else return (-1);
 }
 
-    int main() {
-       
-        cout << kmpMatcher("12345", "34");
-
+int main() {
+    cout << kmpMatcher("12345", "34");
 }
