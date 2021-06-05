@@ -2,7 +2,7 @@
 #include <string.h>
 using namespace std;
 
-int rkMatcher(char t[], char p[])
+int rkMatcher(const char t[], const char p[])
 {
     long m, n, w = 1, vp = 0, vt = 0, s = 0, B = 256;
     const long q = 7919;

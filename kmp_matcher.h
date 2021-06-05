@@ -1,6 +1,6 @@
 #ifndef KMP_MATCHER_H
 #define KMP_MATCHER_H
 
-int kmpMatcher(char *t, char *p);
+int kmpMatcher(const char *t, const char *p);
 
 #endif

@@ -2,7 +2,7 @@
 #include <string.h>
 using namespace std;
 
-int strMatcher(char *t, char *p)
+int strMatcher(const char *t, const char *p)
 {
 
     int i, j, m, n;

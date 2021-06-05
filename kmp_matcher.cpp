@@ -2,7 +2,7 @@
 #include <string.h>
 using namespace std;
 
-void getPi(char *p, int pi[])
+void getPi(const char *p, int pi[])
 {
     int i, j, m;
     m = strlen(p);
@@ -23,7 +23,7 @@ void getPi(char *p, int pi[])
     return;
 }
 
-int kmpMatcher(char *t, char *p)
+int kmpMatcher(const char *t, const char *p)
 {
     int i = 0, j = 0, m, n;
     n = strlen(t);

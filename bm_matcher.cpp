@@ -3,7 +3,7 @@
 using namespace std;
 #define ASIZE 256
 
-void badC(char *p, int badCShift[])
+void badC(const char *p, int badCShift[])
 {
     int i, m;
     m = strlen(p);
@@ -16,7 +16,7 @@ void badC(char *p, int badCShift[])
         badCShift[(int)p[i]] = m - i - 1;
 }
 
-int bmMatcher(char *t, char *p)
+int bmMatcher(const char *t, const char *p)
 {
     int i, j, m, n, badCShift[ASIZE];
     m = strlen(p);
