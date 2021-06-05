@@ -2,24 +2,23 @@
 #include <string.h>
 using namespace std;
 
+int strMatcher(char *t, char *p)
+{
 
+    int i, j, m, n;
+    n = strlen(t);
+    m = strlen(p);
 
-int strMatcher ( string t , string p) {
-
-    int i , j , m, n ;
-    n = t.length();
-    m = p.length();
-
-    for ( i = 0; i <= n - m ; i ++) {
-        for ( j = 0; j < m; j++) {
-            if ( p [ j ] != t [ i+j ] ) break ;
+    for (i = 0; i <= n - m; i++)
+    {
+        for (j = 0; j < m; j++)
+        {
+            if (p[j] != t[i + j])
+                break;
         }
 
-        if ( j == m) return (i);
+        if (j == m)
+            return (i);
     }
-    return (-1) ;
-}
-
-int main() {
-  cout << strMatcher("ababababaababb", "ababb");
+    return (-1);
 }
