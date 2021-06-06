@@ -4,6 +4,9 @@
 #include <streambuf>
 #include <cstring>
 #include <sys/time.h>
+#include <chrono>
+
+typedef std::chrono::high_resolution_clock Clock;
 
 #include "bm_matcher.h"
 #include "kmp_matcher.h"
@@ -12,24 +15,20 @@
 
 using namespace std;
 
-void printResult(int result, clock_t begin, clock_t end)
+void printResult(string type, int result, auto begin, auto end)
 {
-    printf("%d %d\n", result, int(end - begin));
+    cout << type << ": " << result << " " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() << " nanoseconds" << endl;
 }
 
-int main(int argc, char *argv[])
+int main()
 {
-
-    clock_t begin, end;
 
     string txt_aux;
     string pat_aux;
 
-    cin >> txt_aux;
     cin >> pat_aux;
+    cin >> txt_aux;
 
-    // char *txt [txt_aux.length()+1];
-    // char *pat[pat_aux.length()+1];
     const char *txt;
     const char *pat;
 
@@ -37,38 +36,39 @@ int main(int argc, char *argv[])
     pat = pat_aux.c_str();
 
     // begin = clock();
-    // // int benchmarkResult = txtStr.find(patStr);
+    // int defaultResult = txt.find(pat);
     // end = clock();
 
-    // printResult(benchmarkResult, begin, end);
+    // printResult("default", defaultResult, begin, end);
 
     // Brute Force
-    begin = clock();
-    int bruteForceResult = strMatcher(txt, pat);
-    end = clock();
 
-    printResult(bruteForceResult, begin, end);
+    auto begin = Clock::now();
+    int bruteForceResult = strMatcher(txt, pat);
+    auto end = Clock::now();
+
+    printResult("bf", bruteForceResult, begin, end);
 
     // KMP
-    begin = clock();
+    begin = Clock::now();
     int kmpResult = kmpMatcher(txt, pat);
-    end = clock();
+    end = Clock::now();
 
-    printResult(kmpResult, begin, end);
+    printResult("kmp", kmpResult, begin, end);
 
     // Boyer Moore
-    begin = clock();
+    begin = Clock::now();
     int boyerMooreResult = bmMatcher(txt, pat);
-    end = clock();
+    end = Clock::now();
 
-    printResult(boyerMooreResult, begin, end);
+    printResult("bm", boyerMooreResult, begin, end);
 
     // Rabin Karp
-    begin = clock();
+    begin = Clock::now();
     int rabinKarpResult = rkMatcher(txt, pat);
-    end = clock();
+    end = Clock::now();
 
-    printResult(rabinKarpResult, begin, end);
+    printResult("rk", rabinKarpResult, begin, end);
 
     return 0;
 }

@@ -1,58 +1,73 @@
-#include <iostream>
 #include <string.h>
-using namespace std;
 
-void getPi(const char *p, int pi[])
+void computeLPSArray(const char *pat, int M, int *lps)
 {
-    int i, j, m;
-    m = strlen(p);
+    int len = 0;
 
-    if (m > 0)
-        pi[0] = -1;
-    if (m > 1)
-        pi[1] = 0;
+    lps[0] = 0;
 
-    for (i = 2; i < m; i++)
+    int i = 1;
+
+    while (i < M)
     {
-        j = pi[i - 1];
-        while (j >= 0 && p[i - 1] != p[j])
-            j = pi[j];
-
-        pi[i] = j + 1;
-    }
-    return;
-}
-
-int kmpMatcher(const char *t, const char *p)
-{
-    int i = 0, j = 0, m, n;
-    n = strlen(t);
-    m = strlen(p);
-    int pi[m];
-
-    getPi(p, pi);
-
-    while (j < m && i < n)
-    {
-
-        if (t[i] == p[j])
+        if (pat[i] == pat[len])
         {
+            len++;
+            lps[i] = len;
             i++;
-            j++;
         }
         else
         {
-            j = pi[j];
-            if (j <= 0)
+            if (len != 0)
             {
-                j = 0;
+                len = lps[len - 1];
+            }
+            else
+            {
+                lps[i] = 0;
                 i++;
             }
         }
     }
+}
 
-    if (j == m)
-        return (i - m);
-    else
-        return (-1);
+int kmpMatcher(const char *t, const char *p)
+{
+    int M = strlen(p);
+    int N = strlen(t);
+
+    int lps[M];
+
+    computeLPSArray(p, M, lps);
+
+    int i = 0;
+    int j = 0;
+
+    while (i < N)
+    {
+        if (p[j] == t[i])
+        {
+            j++;
+            i++;
+        }
+
+        if (j == M)
+        {
+            return i - j;
+        }
+        else if (i < N && p[j] != t[i])
+        {
+            if (j != 0)
+            {
+
+                j = lps[j - 1];
+            }
+            else
+            {
+                i = i + 1;
+            }
+        }
+    }
+
+    return -1;
 }
